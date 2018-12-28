@@ -14,7 +14,52 @@
 
     <title>piMPF</title>
     
+<style>
 
+body {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+    background-color: #fff;
+}
+
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 0px solid #dee2e6;
+}
+
+.tableRow {
+    background: rgba(0,0,0,.03);
+    color: #343a40;
+    border: 1px solid rgba(0,0,0,.125);
+}
+
+.tableHead {
+    background: #343a40;
+    color: #fff;
+    border: 1px solid rgba(0,0,0,.125);
+}
+table.dataTable thead>tr>th.sorting_asc, table.dataTable thead>tr>th.sorting_desc, table.dataTable thead>tr>th.sorting, table.dataTable thead>tr>td.sorting_asc, table.dataTable thead>tr>td.sorting_desc, table.dataTable thead>tr>td.sorting {
+    padding-right: 0;
+}
+.table td, .table th {
+    padding: 0;
+    vertical-align: top;
+    border-top: 0px solid #dee2e6;
+}
+
+table.dataTable thead .sorting:before, table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_desc:before, table.dataTable thead .sorting_asc_disabled:before, table.dataTable thead .sorting_desc_disabled:before {
+    right: 0;
+    content: "";
+}
+table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_desc_disabled:after {
+    right: 0;
+    content: "";
+}
+</style>
   </head>
   <body>
       
@@ -43,18 +88,30 @@
 </nav>
       
       
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
             <div class="col-12">
-                <h1 class="display-1">pi Multiple Picture Frame</h1>
+                <h2 class="display-2">pi Managable Picture Frame</h2>
             </div>
         </div>
     </div>
-    <div class="container-fluid">
+    <div class="container">
+    <div class="row">
+    <div class="col-12">
+    <h4 class="display-4">Pictures</h2>
+    </div>
+    </div>
+   
         <div class="row mb-3">
             <div class="col-12">
                 <table id="imageTable" class="table" style="width:100%;">
-                   
+        <thead>
+           <th></th>
+           <th><span class="ml-3">Filename</span></th>
+           <th><span class="ml-3">Size</span></th>
+           <th><span class="ml-3">Date</span></th>
+           <th><span class="mr-3">Action</span></th>
+        </thead>         
         <tbody>
             </tbody>
                     
@@ -62,253 +119,7 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid">
-        <div class="row mb-3">
-            <div class="col-12">
-                <h2 class="display-2">Pictures</h2>
-                <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
-                    
-         <div class="input-group ">
-    <input type="file" class="custom-file-input " placeholder="Input group example" aria-label="Input group example" aria-describedby="btnGroupAddon2">
-    <label class="custom-file-label " for="inputGroupFile01"><i class="fas fa-upload mr-1"></i>Upload</label>
-  </div>           
-                    
-  
-  <div class="btn-group" role="group" aria-label="Second group">
-    <button type="button" class="btn btn-outline-danger mb-2" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash mr-1"></i>Delete Selected Pictures</button>
 
-
-  </div>
- 
-</div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6 col-sm-3 col-lg-2">
-                <div class="card mb-3">
-                    <img src="images/daisy-s-1375598.jpg" class="card-img-top" alt="images/daisy-s-1375598.jpg">
-                    <div class="card-header p-1 d-flex justify-content-end">
-                          
-                               <button type="button" class="btn btn-outline-info btn-sm mr-1" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-info-circle"></i></button>
-                        <button type="button" class="btn btn-outline-danger btn-sm mr-1" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash"></i></button>
-                       
-  
-        
-     
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-  <label class="btn btn-sm btn-outline-primary">
-    <input type="checkbox" name="options" id="option1" autocomplete="off" checked> <i class="fas fa-check"></i>
-  </label>
- 
-</div>
-     
-                    </div>
-                    <div class="collapse" id="collapseExample">
-                    <div class="card-body p-1">
-                        <p class="card-title my-0"><small>images/daisy-s-1375598.jpg</small></p>
-                        <p class="card-text my-0"><small class="text-muted">30kb</small></p>
-                        <p class="card-text my-0"><small class="text-muted">2018-12-25</small></p>
-                    </div>
-                    </div>
-                </div>   
-            </div>
-                        <div class="col-6 col-sm-3 col-lg-2">
-                <div class="card mb-3">
-                    <img src="images/daisy-s-1375598.jpg" class="card-img-top" alt="images/daisy-s-1375598.jpg">
-                    <div class="card-header p-1 d-flex justify-content-end">
-                          
-                               <button type="button" class="btn btn-outline-info btn-sm mr-1" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-info-circle"></i></button>
-                        <button type="button" class="btn btn-outline-danger btn-sm mr-1" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash"></i></button>
-                       
-  
-        
-     
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-  <label class="btn btn-sm btn-outline-primary">
-    <input type="checkbox" name="options" id="option1" autocomplete="off" checked> <i class="fas fa-check"></i>
-  </label>
- 
-</div>
-     
-                    </div>
-                    <div class="collapse" id="collapseExample">
-                    <div class="card-body p-1">
-                        <p class="card-title my-0"><small>images/daisy-s-1375598.jpg</small></p>
-                        <p class="card-text my-0"><small class="text-muted">30kb</small></p>
-                        <p class="card-text my-0"><small class="text-muted">2018-12-25</small></p>
-                    </div>
-                    </div>
-                </div>   
-            </div>
-                        <div class="col-6 col-sm-3 col-lg-2">
-                <div class="card mb-3">
-                    <img src="images/daisy-s-1375598.jpg" class="card-img-top" alt="images/daisy-s-1375598.jpg">
-                    <div class="card-header p-1 d-flex justify-content-end">
-                          
-                               <button type="button" class="btn btn-outline-info btn-sm mr-1" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-info-circle"></i></button>
-                        <button type="button" class="btn btn-outline-danger btn-sm mr-1" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash"></i></button>
-                       
-  
-        
-     
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-  <label class="btn btn-sm btn-outline-primary">
-    <input type="checkbox" name="options" id="option1" autocomplete="off" checked> <i class="fas fa-check"></i>
-  </label>
- 
-</div>
-     
-                    </div>
-                    <div class="collapse" id="collapseExample">
-                    <div class="card-body p-1">
-                        <p class="card-title my-0"><small>images/daisy-s-1375598.jpg</small></p>
-                        <p class="card-text my-0"><small class="text-muted">30kb</small></p>
-                        <p class="card-text my-0"><small class="text-muted">2018-12-25</small></p>
-                    </div>
-                    </div>
-                </div>   
-            </div>
-                        <div class="col-6 col-sm-3 col-lg-2">
-                <div class="card mb-3">
-                    <img src="images/daisy-s-1375598.jpg" class="card-img-top" alt="images/daisy-s-1375598.jpg">
-                    <div class="card-header p-1 d-flex justify-content-end">
-                          
-                               <button type="button" class="btn btn-outline-info btn-sm mr-1" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-info-circle"></i></button>
-                        <button type="button" class="btn btn-outline-danger btn-sm mr-1" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash"></i></button>
-                       
-  
-        
-     
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-  <label class="btn btn-sm btn-outline-primary">
-    <input type="checkbox" name="options" id="option1" autocomplete="off" checked> <i class="fas fa-check"></i>
-  </label>
- 
-</div>
-     
-                    </div>
-                    <div class="collapse" id="collapseExample">
-                    <div class="card-body p-1">
-                        <p class="card-title my-0"><small>images/daisy-s-1375598.jpg</small></p>
-                        <p class="card-text my-0"><small class="text-muted">30kb</small></p>
-                        <p class="card-text my-0"><small class="text-muted">2018-12-25</small></p>
-                    </div>
-                    </div>
-                </div>   
-            </div>
-                        <div class="col-6 col-sm-3 col-lg-2">
-                <div class="card mb-3">
-                    <img src="images/daisy-s-1375598.jpg" class="card-img-top" alt="images/daisy-s-1375598.jpg">
-                    <div class="card-header p-1 d-flex justify-content-end">
-                          
-                               <button type="button" class="btn btn-outline-info btn-sm mr-1" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-info-circle"></i></button>
-                        <button type="button" class="btn btn-outline-danger btn-sm mr-1" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash"></i></button>
-                       
-  
-        
-     
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-  <label class="btn btn-sm btn-outline-primary">
-    <input type="checkbox" name="options" id="option1" autocomplete="off" checked> <i class="fas fa-check"></i>
-  </label>
- 
-</div>
-     
-                    </div>
-                    <div class="collapse" id="collapseExample">
-                    <div class="card-body p-1">
-                        <p class="card-title my-0"><small>images/daisy-s-1375598.jpg</small></p>
-                        <p class="card-text my-0"><small class="text-muted">30kb</small></p>
-                        <p class="card-text my-0"><small class="text-muted">2018-12-25</small></p>
-                    </div>
-                    </div>
-                </div>   
-            </div>
-                        <div class="col-6 col-sm-3 col-lg-2">
-                <div class="card mb-3">
-                    <img src="images/daisy-s-1375598.jpg" class="card-img-top" alt="images/daisy-s-1375598.jpg">
-                    <div class="card-header p-1 d-flex justify-content-end">
-                          
-                               <button type="button" class="btn btn-outline-info btn-sm mr-1" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-info-circle"></i></button>
-                        <button type="button" class="btn btn-outline-danger btn-sm mr-1" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash"></i></button>
-                       
-  
-        
-     
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-  <label class="btn btn-sm btn-outline-primary">
-    <input type="checkbox" name="options" id="option1" autocomplete="off" checked> <i class="fas fa-check"></i>
-  </label>
- 
-</div>
-     
-                    </div>
-                    <div class="collapse" id="collapseExample">
-                    <div class="card-body p-1">
-                        <p class="card-title my-0"><small>images/daisy-s-1375598.jpg</small></p>
-                        <p class="card-text my-0"><small class="text-muted">30kb</small></p>
-                        <p class="card-text my-0"><small class="text-muted">2018-12-25</small></p>
-                    </div>
-                    </div>
-                </div>   
-            </div>
-                        <div class="col-6 col-sm-3 col-lg-2">
-                <div class="card mb-3">
-                    <img src="images/daisy-s-1375598.jpg" class="card-img-top" alt="images/daisy-s-1375598.jpg">
-                    <div class="card-header p-1 d-flex justify-content-end">
-                          
-                               <button type="button" class="btn btn-outline-info btn-sm mr-1" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-info-circle"></i></button>
-                        <button type="button" class="btn btn-outline-danger btn-sm mr-1" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash"></i></button>
-                       
-  
-        
-     
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-  <label class="btn btn-sm btn-outline-primary">
-    <input type="checkbox" name="options" id="option1" autocomplete="off" checked> <i class="fas fa-check"></i>
-  </label>
- 
-</div>
-     
-                    </div>
-                    <div class="collapse" id="collapseExample">
-                    <div class="card-body p-1">
-                        <p class="card-title my-0"><small>images/daisy-s-1375598.jpg</small></p>
-                        <p class="card-text my-0"><small class="text-muted">30kb</small></p>
-                        <p class="card-text my-0"><small class="text-muted">2018-12-25</small></p>
-                    </div>
-                    </div>
-                </div>   
-            </div>
-                        <div class="col-6 col-sm-3 col-lg-2">
-                <div class="card mb-3">
-                    <img src="images/daisy-s-1375598.jpg" class="card-img-top" alt="images/daisy-s-1375598.jpg">
-                    <div class="card-header p-1 d-flex justify-content-end">
-                          
-                               <button type="button" class="btn btn-outline-info btn-sm mr-1" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-info-circle"></i></button>
-                        <button type="button" class="btn btn-outline-danger btn-sm mr-1" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash"></i></button>
-                       
-  
-        
-     
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-  <label class="btn btn-sm btn-outline-primary">
-    <input type="checkbox" name="options" id="option1" autocomplete="off" checked> <i class="fas fa-check"></i>
-  </label>
- 
-</div>
-     
-                    </div>
-                    <div class="collapse" id="collapseExample">
-                    <div class="card-body p-1">
-                        <p class="card-title my-0"><small>images/daisy-s-1375598.jpg</small></p>
-                        <p class="card-text my-0"><small class="text-muted">30kb</small></p>
-                        <p class="card-text my-0"><small class="text-muted">2018-12-25</small></p>
-                    </div>
-                    </div>
-                </div>   
-            </div>
-        </div>
         
         <!-- Modal for File Deletion-->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true" data-backdrop="static" data-keyboard="false">
@@ -345,12 +156,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-     
-
-
-
-   
+      <div class="modal-body">   
 
      <div class="input-group mb-3">
   <div class="input-group-prepend">
@@ -361,12 +167,7 @@
     <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
   </div>
 </div>
-
-         
-     
- 
-
-
+   
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Abort</button>
@@ -390,19 +191,69 @@
 <script>
 $(document).ready(function() {
     $('#imageTable').DataTable( {
-        "dom": '<"container-fluid"<"row"<"col-6"l><"col-6"f>>><"container-fluid"<"row"<"col-12 px-0"rt>>><"container-fluid"<"row"<"col-6"i><"col-6"p>>>',
+        "dom": '<"container-fluid"<"row"<"col-xl-2"l><"col-xl-7 text-left"f><"col-xl-3 text-right"B>>><"container-fluid"<"row"<"col-12 px-0"rt>>><"container-fluid"<"row"<"col-6"i><"col-6"p>>>',
 
         "ajax": 'files.php',
         
        
   order: [[1, 'asc']],
+  buttons: [           
+            {
+                text: '<span id="toggleView">Upload<i class="fas fa-upload ml-1"></i></span>',
+                className: 'btn btn-sm btn-outline-primary ml-1',
+                init: function(api, node, config) {$(node).removeClass('btn-secondary')},
+                action: function ( ) {
+                    if ( toggleView == "table") {
+                        $("#toggleView").html('<i class="fas fa-table"></i>');
+                        toggleView = "cards"
+                    } 
+                    else if ( toggleView == "cards" ) {
+                        $("#toggleView").html('<i class="fas fa-th-large"></i>');
+                        toggleView = "table"
+                    }
+                    table.ajax.reload();
+                }
+            },
+            {
+                text: '<span id="toggleView"><i class="fas fa-table"></i></span>',
+                className: 'btn btn-sm btn-outline-primary ml-1',
+                init: function(api, node, config) {$(node).removeClass('btn-secondary')},
+                action: function ( ) {
+                    if ( toggleView == "table") {
+                        $("#toggleView").html('<i class="fas fa-table"></i>');
+                        toggleView = "cards"
+                    } 
+                    else if ( toggleView == "cards" ) {
+                        $("#toggleView").html('<i class="fas fa-th-large"></i>');
+                        toggleView = "table"
+                    }
+                    table.ajax.reload();
+                }
+            },
+            {
+                text: '<span id="toggleView"><i class="fas fa-trash"></i></span>',
+                className: 'btn btn-outline-danger btn-sm ml-3 mr-1',
+                init: function(api, node, config) {$(node).removeClass('btn-secondary')},
+                action: function ( ) {
+                    if ( toggleView == "table") {
+                        $("#toggleView").html('<i class="fas fa-table"></i>');
+                        toggleView = "cards"
+                    } 
+                    else if ( toggleView == "cards" ) {
+                        $("#toggleView").html('<i class="fas fa-th-large"></i>');
+                        toggleView = "table"
+                    }
+                    table.ajax.reload();
+                }
+            }
+        ],
   columns: [
             { 
             "orderable": false, 
             targets: 0, 
             cellType: 'div',
             className: 'col-12 col-sm-2 col-lg-1 colImage',
-            render: function ( data, type, row, meta ) {return '<img data-src="'+data+'" class="img-fluid lazy" style="max-width:75px">';} },
+            render: function ( data, type, row, meta ) {return '<img data-src="'+data+'" class="img-fluid lazy">';} },
             { 
             "id":"1",
             targets: 1, 
@@ -423,25 +274,26 @@ $(document).ready(function() {
             "orderable": false,
             targets: 4, 
             cellType: 'div',
-            className: 'col-12 col-sm-3 col-md-2 col-lg-2 colActions',
+            className: 'col-12 col-sm-3 col-md-2 col-lg-2 text-right colActions',
             render: function ( data, type, row, meta ) {return '<button type="button" class="btn btn-outline-danger btn-sm mr-1" data-toggle="modal" data-target="#deleteModal" data-id="'+row[1]+'" data-option="delete" id="delSingle";"><i class="fas fa-trash"></i></button><div class="btn-group btn-group-toggle" data-toggle="buttons"><label class="btn btn-sm btn-outline-primary"><input type="checkbox" name="options" id="option1" autocomplete="off" checked=""> <i class="fas fa-check"></i></label></div>' }
             }
             
         ],
     "drawCallback": function(data){
-        $("#imageTable").addClass("");
-        $("thead").addClass("container-fluid");
+        
+        
         
         $("tr").addClass("row");
-        $("tr .odd").addClass("my-3");
+        $("tr").addClass("mx-1 my-3 py-3 tableRow shadow-sm");
         $("tbody").addClass("container-fluid");
-        
+        $("thead").addClass("container-fluid d-none d-sm-table-row");
+        $("thead tr").removeClass("tableRow  my-3 py-3").addClass("tableHead py-1");
         
         
          $('img.lazy').lazy();
          
          
-         $("th").remove();
+         //$("th").remove();
          
     }  
         
