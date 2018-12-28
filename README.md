@@ -1,7 +1,7 @@
 # piMPF
 Raspberry Pi Manageable Picture Frame
 
-##Prerequisuites
+## Prerequisuites
 - NGINX (or other http webserver)
 - PHP
 
@@ -16,4 +16,10 @@ Open directory with browser.
 
 ## Contribute
 ### Fork Source Code
+git init
+git remote add origin https://github.com/handtrixx/piMPF.git
+git pull origin master
 ### Upload Changes
+git add .
+git commit -m "my Changes"
+git push -u origin master
