@@ -1,7 +1,6 @@
 # piMPF
 ![alt text](https://github.com/handtrixx/piMPF/blob/master/components/help/piMPF_logo_small.png)
 
-
 Raspberry Pi Manageable Picture Frame
 
 ## Prerequisuites

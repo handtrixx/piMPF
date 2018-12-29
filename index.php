@@ -64,38 +64,140 @@ div.dataTables_wrapper div.dataTables_filter {
 .dataTables_length {
     text-align: left !important;
 }
+
+
+/* Screensaver */
+.screensaver {
+    z-index: 2;
+
+    text-align: center;
+    height:100px;
+    position:absolute;
+    top: 0;
+    left:0;
+    animation:moving 1500s infinite;
+}
+@keyframes moving {
+    0% {top: 1%; left:1%;}
+    25% {top: 60%; left:60%;}
+    50% {top: 1%; left:60%;}
+    75% {top: 60%; left:1%;}
+}
+
+#timeScreensaver {
+    font-family: Arial;
+    font-size: 8rem;
+  -webkit-text-stroke: 1px black;
+   color: white;
+   text-shadow:
+       3px 3px 0 #000,
+     -1px -1px 0 #000,  
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+       1px 1px 0 #000;
+}
+
+#dateScreensaver {
+    font-family: Arial;
+    font-size: 4rem;
+      -webkit-text-stroke: 1px black;
+   color: white;
+   text-shadow:
+       3px 3px 0 #000,
+     -1px -1px 0 #000,  
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+       1px 1px 0 #000;
+}
+
+/* Screensaver */
+
+.ScreensaverModal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+.ScreensaverModal-dialog {
+  position: fixed;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  max-width: 100%;
+}
+
+.ScreensaverModal-content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border: 0 !important;
+  border-radius: 0;
+  box-shadow: none;
+  background-color: black;
+}
+
+
+.ScreensaverModal-body {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  padding: 0;
+  width: 100%;
+  font-weight: 300;
+  overflow: auto;
+}
+
+
+
+.screensaverImg {
+    object-fit: contain;
+    object-position: center;
+    height: 100vh;
+    max-width: 100%;
+    width: 100%;
+    max-height: 100%;
+}
 </style>
 </head>
 <body>     
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">piMPF</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">14:19:32</a>
-            </li>
-        </ul>    
-        <form class="form-inline my-2 my-lg-0 ml-auto">     
-            <button class="btn btn-outline-success my-2 my-sm-0 mr-1" type="submit"><i class="fas fa-cogs"></i></button>
-            <button class="btn btn-outline-success my-2 my-sm-0 mr-1" type="submit"><i class="fas fa-sync"></i></button>
-            <button class="btn btn-outline-success my-2 my-sm-0 mr-1" type="submit"><i class="far fa-window-maximize"></i></button>
-        </form>
+
+
+<div class="container-fluid sticky-top">
+    <div class="row">
+        <div class="col-xl-1 px-0 bg-dark"></div>
+        <div class="col-xl-10 px-0">
+            <nav class="navbar navbar-dark bg-dark py-0">
+                <a class="navbar-brand" href="#">
+                    <img src="components/help/piMPF_logo_small.png" width="30" alt="logo">
+                piMPF
+                </a>          
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a id="currentTime" class="nav-link" href="#"></a>
+                    </li>
+                </ul>     
+            </nav> 
+        </div>
+        <div class="col-xl-1 px-0 bg-dark"></div>
     </div>
-</nav>     
-      
+</div>
+    
 <div class="container-fluid">
     <div class="row">
         <div class="col-xl-1 px-0"></div>
         <div class="col-xl-10 px-0">
             <div class="container-fluid">
                 <div class="row my-2">
-                    <div class="col-4">                        
-                        <img src="components/help/piMPF_logo.png" class="img-fluid" alt="logo">
+                    <div class="col-12 col-sm-4 d-flex align-items-center">                        
+                        <img src="components/help/piMPF_logo_small.png" class="img-fluid mx-auto d-block align-middle" alt="logo">
                     </div>
-                    <div class="col-8">
+                    <div class="col-12 col-sm-8">
                     <h2 class="display-2">piMPF</h2>
                     <p>Raspberry Pi Manageable Picture Frame</p>
                     </div>
@@ -110,7 +212,9 @@ div.dataTables_wrapper div.dataTables_filter {
                 </div>
                 <div class="row mb-4">
                     <div class="col-12">
-                        <button type="button" class="btn btn-primary btn-lg btn-block"><i class="fas fa-play mr-1"></i>Start!</button>
+                        <button id="buttonStart" type="button" onclick="fullscreen();" data-toggle="modal" data-target="#screensaverModal" class="btn btn-primary btn-lg btn-block">
+                            Start<i class="fas fa-play mx-1"></i>
+                        </button>                            
                     </div>
                 </div>
                 <div class="row">
@@ -183,6 +287,27 @@ div.dataTables_wrapper div.dataTables_filter {
     </div>
 </div>
 
+<!-- Modal for Screensaver-->
+<section id="ScreensaverModal">
+    <div class="modal ScreensaverModal fade" id="screensaverModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog ScreensaverModal-dialog" role="document">
+            <div class="modal-content ScreensaverModal-content">
+                <div class="modal-body ScreensaverModal-body">
+                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="1000">
+                        <div class='screensaver'>
+                            <h1 id='timeScreensaver'></h1>
+                            <h2 id='dateScreensaver'></h2>
+                        </div>
+                        <div class="carousel-inner">
+                            <!-- Items are injected by jquery -->  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -219,7 +344,6 @@ $(document).ready(function() {
                             method: 'POST',
                             body: formData
                         }).then(response => {
-                            //console.log(response);
                             $('#uploadModal').modal('hide');
                             table.ajax.reload();
                             });
@@ -388,5 +512,75 @@ $( "#AbortdelSingleFile" ).click(function() {
 
 });
 </script>
+
+<script>
+//Current Time
+var now = new Date(Date.now());
+var formattedTime = now.getHours() + ":" + now.getMinutes();
+$('#currentTime').html(formattedTime);
+window.setInterval(function(){
+var now = new Date(Date.now());
+var formattedTime = now.getHours() + ":" + now.getMinutes();
+$('#currentTime').html(formattedTime);
+}, 60000);
+</script>
+
+<script>
+//Fullscreen Switch
+function fullscreen() {
+    var isInFullScreen = (document.fullscreenElement && document.fullscreenElement !== null) ||
+        (document.webkitFullscreenElement && document.webkitFullscreenElement !== null) ||
+        (document.mozFullScreenElement && document.mozFullScreenElement !== null) ||
+        (document.msFullscreenElement && document.msFullscreenElement !== null);
+
+    var docElm = document.documentElement;
+    if (!isInFullScreen) {
+        if (docElm.requestFullscreen) {
+            docElm.requestFullscreen();
+        } else if (docElm.mozRequestFullScreen) {
+            docElm.mozRequestFullScreen();
+        } else if (docElm.webkitRequestFullScreen) {
+            docElm.webkitRequestFullScreen();
+        } else if (docElm.msRequestFullscreen) {
+            docElm.msRequestFullscreen();
+        }
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        }
+    }
+}
+</script>
+
+
+
+
+<!-- Screensaver Component -->
+<script>
+var carouselHTML = "";
+$("#buttonStart").click(function(){  
+    $.getJSON( "files.php", function( data ) {        
+        arr = data.data;     
+        for ( var i = 1, l = arr.length; i < l; i++ ) {  
+            carouselHTML=carouselHTML+'<div class="carousel-item"><img src="'+arr[i][0]+'" class="screensaverImg"></div>'
+        }
+        $(".carousel-inner").html(carouselHTML)
+        $( ".carousel-item" ).first().addClass( "active" );        
+    });
+});  
+
+$( "#screensaverModal" ).click(function( event ) {
+    fullscreen();
+    $('#screensaverModal').modal('hide')
+});
+</script>
+
+
 </body>
 </html>
