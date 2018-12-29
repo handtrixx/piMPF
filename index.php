@@ -56,6 +56,14 @@ table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, 
     right: 0;
     content: "";
 }
+
+div.dataTables_wrapper div.dataTables_filter {
+    text-align: left;
+}
+
+.dataTables_length {
+    text-align: left !important;
+}
 </style>
 </head>
 <body>     
@@ -78,36 +86,66 @@ table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, 
     </div>
 </nav>     
       
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-12">
-            <h2 class="display-2">pi Managable Picture Frame</h2>
+        <div class="col-xl-1 px-0"></div>
+        <div class="col-xl-10 px-0">
+            <div class="container-fluid">
+                <div class="row my-2">
+                    <div class="col-4">                        
+                        <img src="components/help/piMPF_logo.png" class="img-fluid" alt="logo">
+                    </div>
+                    <div class="col-8">
+                    <h2 class="display-2">piMPF</h2>
+                    <p>Raspberry Pi Manageable Picture Frame</p>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">                        
+                        <h3><i class="fas fa-play-circle mr-1"></i>Slideshow</h3>
+                        <hr>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <button type="button" class="btn btn-primary btn-lg btn-block"><i class="fas fa-play mr-1"></i>Start!</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">                        
+                        <h3><i class="fas fa-file-image mr-1"></i>Picture Manager</h3>
+                        <hr>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-12 px-0">
+                        <table id="imageTable" class="table" style="width:100%;">
+                            <thead>
+                                <th></th>
+                                <th><span class="ml-3">Filename</span></th>
+                                <th><span class="ml-3">Size</span></th>
+                                <th><span class="ml-3">Date</span></th>
+                                <th><span class="mr-3">Action</span></th>
+                            </thead>         
+                            <tbody>
+                            </tbody>                    
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">                        
+                        <h3><i class="fas fa-cogs mr-1"></i>Settings</h3>
+                        <hr>
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="col-xl-1 px-0"></div>
     </div>
 </div>
 
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <h4 class="display-4">Pictures</h2>
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col-12">
-            <table id="imageTable" class="table" style="width:100%;">
-                <thead>
-                    <th></th>
-                    <th><span class="ml-3">Filename</span></th>
-                    <th><span class="ml-3">Size</span></th>
-                    <th><span class="ml-3">Date</span></th>
-                    <th><span class="mr-3">Action</span></th>
-                </thead>         
-                <tbody>
-                </tbody>                    
-            </table>
-        </div>
-    </div>
-</div>
         
 <!-- Modal for File Deletion-->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true" data-backdrop="static" data-keyboard="false">
@@ -158,7 +196,7 @@ table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, 
 $(document).ready(function() {
     toggleView = "cards"
     var table = $('#imageTable').DataTable( {
-        "dom": '<"container-fluid"<"row"<"col-xl-2"l><"col-xl-7 text-left"f><"col-xl-3 text-right"B>>><"container-fluid"<"row"<"col-12 px-0"rt>>><"container-fluid"<"row"<"col-6"i><"col-6"p>>>',
+        "dom": '<"container-fluid"<"row"<"col-sm-6 col-md-4 col-lg-3 text-left"f><"col-sm-6 col-md-2 col-lg-2"l><"col-sm-12 col-md-6 col-lg-7 text-right"B>>><"container-fluid"<"row"<"col-12 px-0"rt>>><"container-fluid"<"row"<"col-6"i><"col-6"p>>>',
         "ajax": 'files.php',            
         order: [[1, 'asc']],
         buttons: [           
@@ -167,6 +205,33 @@ $(document).ready(function() {
                 className: 'btn btn-sm btn-outline-primary ml-1',
                 init: function(api, node, config) {$(node).removeClass('btn-secondary')},
                 action: function ( ) {
+                    const url = 'uploadFiles.php';
+                    const form = document.querySelector('#uploadForm');
+                    form.addEventListener('submit', e => {
+                        e.preventDefault();
+                        const files = document.querySelector('[type=file]').files;
+                        const formData = new FormData();
+                        for (let i = 0; i < files.length; i++) {
+                            let file = files[i];
+                            formData.append('files[]', file);
+                        }
+                        fetch(url, {
+                            method: 'POST',
+                            body: formData
+                        }).then(response => {
+                            //console.log(response);
+                            $('#uploadModal').modal('hide');
+                            table.ajax.reload();
+                            });
+                        }); 
+                }
+            },
+            {
+                text: '<span id="btnRefresh";"><i class="fas fa-sync-alt"></i></span>',                
+                className: 'btn btn-sm btn-outline-primary ml-1',
+                init: function(api, node, config) {$(node).removeClass('btn-secondary')},
+                action: function ( ) {
+                    table.ajax.reload();
                 }
             },
             {
@@ -319,28 +384,6 @@ $(document).on("click", "#delSingleFile", function () {
 $( "#AbortdelSingleFile" ).click(function() {
     $('#deleteModal').modal('hide');
     table.ajax.reload();
-});
-
-$(document).on("click", "#btnUpload", function () {   
-    const url = 'uploadFiles.php';
-    const form = document.querySelector('#uploadForm');
-    form.addEventListener('submit', e => {
-        e.preventDefault();
-        const files = document.querySelector('[type=file]').files;
-        const formData = new FormData();
-        for (let i = 0; i < files.length; i++) {
-            let file = files[i];
-            formData.append('files[]', file);
-        }
-        fetch(url, {
-            method: 'POST',
-            body: formData
-        }).then(response => {
-            //console.log(response);
-            $('#uploadModal').modal('hide');
-    table.ajax.reload();
-        });
-    });    
 });
 
 });
