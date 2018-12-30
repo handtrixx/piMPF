@@ -10,34 +10,51 @@
     <link rel="stylesheet" href="assets/fontawesome/css/all.css" >
     <!-- Datatables CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/b-1.5.4/cr-1.5.0/r-2.2.2/rr-1.2.4/sl-1.2.6/datatables.min.css"/>
+
+    
     <title>piMPF</title>    
 <style>
+@font-face { 
+font-family: "OpenSans"; 
+src: url("assets/google/OpenSans-Regular.ttf"); 
+}
+
 body {
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-family: 'OpenSans', sans-serif;
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
     color: #212529;
-    text-align: left;
-    background-color: #fff;
+    background-color: rgba(0,0,0,.03);
+}
+
+.bg-white {
+    background-color:white;
+}
+
+.upload-control {      
+        height: 100px;
+        border: 2px dashed #ced4da;
+        background-color: rgba(0,0,0,.03);
+}
 }
 .table thead th {
     vertical-align: bottom;
     border-bottom: 0px solid #dee2e6;
 }
+
 .tableRow {
-    background: rgba(0,0,0,.03);
+    background: white;
     color: #343a40;
     border: 1px solid rgba(0,0,0,.125);
 }
 .tableCard {
-    background: rgba(0,0,0,.03);
+    background: white;
     color: #343a40;
     border: 1px solid rgba(0,0,0,.125);
 }
 .tableHead {
-    background: #343a40;
-    color: #fff;
+
     border: 1px solid rgba(0,0,0,.125);
 }
 table.dataTable thead>tr>th.sorting_asc, table.dataTable thead>tr>th.sorting_desc, table.dataTable thead>tr>th.sorting, table.dataTable thead>tr>td.sorting_asc, table.dataTable thead>tr>td.sorting_desc, table.dataTable thead>tr>td.sorting {
@@ -61,10 +78,12 @@ div.dataTables_wrapper div.dataTables_filter {
     text-align: left;
 }
 
-.dataTables_length {
+.dataTables_length, .dataTables_info {
     text-align: left !important;
 }
-
+div.dataTables_wrapper div.dataTables_info {
+    padding-top: 0.5em;
+}
 
 /* Screensaver */
 .screensaver {
@@ -163,6 +182,20 @@ div.dataTables_wrapper div.dataTables_filter {
     width: 100%;
     max-height: 100%;
 }
+
+.modal-content {
+    border-radius: 0;
+}
+.btn, .btn-lg, .btn-sm, .form-control, .form-control-sm, .page-item:first-child .page-link, .page-item:last-child .page-link {
+    border-radius: 0;
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+}
+
+.dataTables_empty {
+
+    padding: 6px !important;
+    border: 2px dashed red !important;
+}
 </style>
 </head>
 <body>     
@@ -187,14 +220,15 @@ div.dataTables_wrapper div.dataTables_filter {
         <div class="col-xl-1 px-0 bg-dark"></div>
     </div>
 </div>
-    
+
 <div class="container-fluid">
-    <div class="row">
+    <div class="row " style=""></div>
+    <div class="row bg-white my-4 ">
         <div class="col-xl-1 px-0"></div>
         <div class="col-xl-10 px-0">
-            <div class="container-fluid">
-                <div class="row my-2">
-                    <div class="col-12 col-sm-4 d-flex align-items-center">                        
+            <div class="container-fluid bg-white">
+                <div class="row my-2 ">
+                    <div class="col-12 col-sm-4 d-flex align-items-center bg-white">                        
                         <img src="components/help/piMPF_logo_small.png" class="img-fluid mx-auto d-block align-middle" alt="logo">
                     </div>
                     <div class="col-12 col-sm-8">
@@ -204,19 +238,23 @@ div.dataTables_wrapper div.dataTables_filter {
                 </div>
             </div>
             <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12">                        
-                        <h3><i class="fas fa-play-circle mr-1"></i>Slideshow</h3>
-                        <hr>
-                    </div>
-                </div>
                 <div class="row mb-4">
                     <div class="col-12">
-                        <button id="buttonStart" type="button" onclick="fullscreen();" data-toggle="modal" data-target="#screensaverModal" class="btn btn-primary btn-lg btn-block">
+                        <button id="buttonStart" type="button" onclick="fullscreen();" data-toggle="modal" data-target="#screensaverModal" class="btn btn-primary btn-lg btn-block shadow">
                             Start<i class="fas fa-play mx-1"></i>
                         </button>                            
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+<div class="container-fluid">    
+    <div class="row ">
+        <div class="col-xl-1 px-0"></div>
+        <div class="col-xl-10 px-0">           
+            <div class="container-fluid">               
                 <div class="row">
                     <div class="col-12">                        
                         <h3><i class="fas fa-file-image mr-1"></i>Picture Manager</h3>
@@ -238,6 +276,17 @@ div.dataTables_wrapper div.dataTables_filter {
                         </table>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="col-xl-1 px-0"></div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row bg-white my-4">
+        <div class="col-xl-1 px-0"></div>
+        <div class="col-xl-10 px-0"> 
+            <div class="container-fluid mt-4">
                 <div class="row">
                     <div class="col-12">                        
                         <h3><i class="fas fa-cogs mr-1"></i>Settings</h3>
@@ -250,7 +299,16 @@ div.dataTables_wrapper div.dataTables_filter {
     </div>
 </div>
 
-        
+<div class="container-fluid bg-dark">
+    <div class="row">
+        <div class="col-xl-1 px-0 "></div>
+        <div class="col-xl-10 px-0">
+            <p>copyright niklas.stephan
+        </div>
+        <div class="col-xl-1 px-0 bg-dark"></div>
+    </div>
+</div>
+
 <!-- Modal for File Deletion-->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog" role="document">
@@ -268,32 +326,44 @@ div.dataTables_wrapper div.dataTables_filter {
             </div>
         </div>
     </div>
+
 </div>
+
 
 <!-- Modal for File Upload-->
 <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
+        <form id="uploadForm" method="post" enctype="multipart/form-data">
             <div class="modal-header">
                 <h5 class="modal-title" id="deleteModalHeader">Select Files for Upload</h5>
             </div>            
             <div class="modal-body">
-                <form id="uploadForm" method="post" enctype="multipart/form-data">
-                    <input type="file" name="files[]" multiple>
-                    <input type="submit" value="Upload File" name="submit">
-                </form>                        
-            </div>     
+                <p id="uploadinfoText">Choose files by file browser or drag them into box.</p>
+                <input type="file" id="uploadInput" class="form-control upload-control" name="files[]" multiple>    
+                <div class="d-flex justify-content-center">
+                    <div class="d-none spinner-border" id="loadingSpinner" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>                                 
+            </div>  
+            <div class="modal-footer">       
+                <button type="button" id="UploaddelSingleFile" class="btn btn-secondary" data-dismiss="modal">Abort</button>
+                <input type="submit" value="Upload Files" class="btn btn-primary" name="submit">
+                <button type="button" id="delConfirm" class="d-none btn btn-success" data-dismiss="modal">OK</button>
+            </div>  
+            </form>  
         </div>
     </div>
 </div>
 
 <!-- Modal for Screensaver-->
 <section id="ScreensaverModal">
-    <div class="modal ScreensaverModal fade" id="screensaverModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal ScreensaverModal" id="screensaverModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog ScreensaverModal-dialog" role="document">
             <div class="modal-content ScreensaverModal-content">
                 <div class="modal-body ScreensaverModal-body">
-                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="1000">
+                    <div id="carouselExampleControls" class="carousel carousel-fade" data-ride="carousel" data-interval="3000" data-pause="false">
                         <div class='screensaver'>
                             <h1 id='timeScreensaver'></h1>
                             <h2 id='dateScreensaver'></h2>
@@ -317,11 +387,34 @@ div.dataTables_wrapper div.dataTables_filter {
 <script src="assets/lazyload/jquery.lazy.min.js"></script>
 
 
+<!-- Screensaver Component -->
+
+
+<script>
+var carouselHTML = "";
+$("#buttonStart").click(function(){  
+    $.getJSON( "files.php", function( data ) {        
+        arr = data.data;     
+        for ( var i = 0, l = arr.length; i < l; i++ ) {  
+            carouselHTML=carouselHTML+'<div class="carousel-item"><img data-src="'+arr[i][0]+'" class="screensaverImg lazy"></div>'
+        }
+        $(".carousel-inner").html(carouselHTML)
+        $( ".carousel-item" ).first().addClass( "active" );  
+        $('img.lazy').lazy();
+
+    });
+}); 
+$( "#screensaverModal" ).click(function( event ) {
+    fullscreen();
+    $('#screensaverModal').modal('hide')
+});
+</script>
+
 <script>
 $(document).ready(function() {
     toggleView = "cards"
     var table = $('#imageTable').DataTable( {
-        "dom": '<"container-fluid"<"row"<"col-sm-6 col-md-4 col-lg-3 text-left"f><"col-sm-6 col-md-2 col-lg-2"l><"col-sm-12 col-md-6 col-lg-7 text-right"B>>><"container-fluid"<"row"<"col-12 px-0"rt>>><"container-fluid"<"row"<"col-6"i><"col-6"p>>>',
+        "dom": '<"container-fluid"<"bg-white shadow-sm px-2" <"row pt-2"<"col-sm-6 col-md-4 col-lg-3 text-left"f><"col-sm-6 col-md-2 col-lg-2"l><"col-sm-12 col-md-6 col-lg-7 text-right"B>>>><"container-fluid"<"row"<"col-12 px-0"rt>>><"container-fluid"<"bg-white shadow-sm px-2" <"row pt-2"<"col-12 col-sm-6 mb-2"i><"col-sm-6 mb-2"p>>>>',
         "ajax": 'files.php',            
         order: [[1, 'asc']],
         buttons: [           
@@ -336,6 +429,9 @@ $(document).ready(function() {
                         e.preventDefault();
                         const files = document.querySelector('[type=file]').files;
                         const formData = new FormData();
+                        $('#uploadInput').addClass("d-none");
+                        $('#loadingSpinner').removeClass("d-none");
+                        $('#uploadinfoText').html('Please wait until files are uploaded.')
                         for (let i = 0; i < files.length; i++) {
                             let file = files[i];
                             formData.append('files[]', file);
@@ -345,6 +441,9 @@ $(document).ready(function() {
                             body: formData
                         }).then(response => {
                             $('#uploadModal').modal('hide');
+                            $('#uploadInput').removeClass("d-none");
+                            $('#loadingSpinner').addClass("d-none");
+                            $('#uploadinfoText').html('Choose files by file browser or drag them into box.')
                             table.ajax.reload();
                             });
                         }); 
@@ -360,7 +459,7 @@ $(document).ready(function() {
             },
             {
                 text: '<span id="toggleView"><i class="fas fa-table"></i></span>',
-                className: 'btn btn-sm btn-outline-primary ml-1',
+                className: 'btn btn-sm btn-outline-primary ml-1 d-none d-sm-block',
                 init: function(api, node, config) {$(node).removeClass('btn-secondary')},
                 action: function ( ) {
                     if ( toggleView == "table") {
@@ -375,21 +474,54 @@ $(document).ready(function() {
                 }
             },
             {
-                text: '<span id="toggleView"><i class="fas fa-trash"></i></span>',
-                className: 'btn btn-outline-danger btn-sm ml-3 mr-1',
+                text: '<span id="toggleView"><i class="fas fa-check"></i></span>',
+                className: 'btn btn-outline-primary btn-sm btn-checkAll ml-3 mr-1',
                 init: function(api, node, config) {$(node).removeClass('btn-secondary')},
                 action: function ( ) {
-                    if ( toggleView == "table") {
-                        $("#toggleView").html('<i class="fas fa-table"></i>');
-                        toggleView = "cards"
-                    } 
-                    else if ( toggleView == "cards" ) {
-                        $("#toggleView").html('<i class="fas fa-th-large"></i>');
-                        toggleView = "table"
+                        if ($(".btn-checkAll").hasClass('active'))
+                        {
+                            $(".btn-checkAll").removeClass( 'active' );
+                            $(".labelSingle").removeClass( 'active' );
+                            $('.btn-delAll').removeClass('btn-outline-danger').addClass('btn-outline-light')
+                            
+                        }
+                        else
+                        {
+                            $(".btn-checkAll").addClass( 'active' );
+                            $(".labelSingle").addClass( 'active' );
+                            $('.btn-delAll').addClass('btn-outline-danger').removeClass('btn-outline-light')
+                            answer='';
+            $('#Group .active').each(function(){
+                answer= answer+$(this).attr('id')+','; 
+                $('.btn-delAll').removeClass('btn-outline-light').addClass('btn-outline-danger')
+            });
+            answer=answer.slice(0,-1);
+
+                        }
+                        
                     }
-                    table.ajax.reload();
-                }
+                    
+                
+            },
+            {
+                text: '<span id="toggleView"><i class="fas fa-trash"></i></span>',
+                className: 'btn btn-outline-light btn-sm btn-delAll ml-1 mr-1',
+                init: function(api, node, config) {$(node).removeClass('btn-secondary')},
+                action: function ( ) {
+                    }
+                    
+                
+            },
+            {
+                text: '<span id="toggleView"><i class="fas fa-download"></i></span>',
+                className: 'btn btn-outline-light btn-sm ml-1 mr-1',
+                init: function(api, node, config) {$(node).removeClass('btn-secondary')},
+                action: function ( ) {
+                    }
+                    
+                
             }
+            
         ],
         columns: [
             { 
@@ -403,24 +535,30 @@ $(document).ready(function() {
             targets: 1, 
             cellType: 'div',
             className: 'col-12 colName',
-            render: function ( data, type, row, meta ) {return '<a href="'+data+'" target=_blank>'+data.replace("images/", "")+'</a>';}},
+            render: function ( data, type, row, meta ) {return '<small>'+data.replace("images/", "")+'</small>';}},
             { 
             targets: 2,
             cellType: 'div',
-            className: 'col-12 colSize'  
-            },
+            className: 'col-12 colSize',
+            render: function ( data, type, row, meta ) {return '<small>'+data+'</small>';}},
             { 
             targets: 3,
             cellType: 'div',
-            className: 'col-12 colDate'     
-            },
+            className: 'col-12 colDate',
+            render: function ( data, type, row, meta ) {return '<small>'+data+'</small>';}},
             { 
             "orderable": false,
             targets: 4, 
             cellType: 'div',
             className: 'col-12 text-right colActions',
             render: function ( data, type, row, meta ) {
-                return '<button type="button" class="btn btn-outline-danger btn-sm mr-1" data-toggle="modal" data-target="#deleteModal" data-id="'+row[1]+'" data-option="delete" id="delSingle";"><i class="fas fa-trash"></i></button><div class="btn-group btn-group-toggle" data-toggle="buttons"><label class="btn btn-sm btn-outline-primary"><input type="checkbox" name="options" id="option1" autocomplete="off" checked=""> <i class="fas fa-check"></i></label></div>' }
+                return '<a role="button" class="btn btn-outline-secondary btn-sm mr-1" href="'+row[1]+'" target=_blank>'+
+                        '<i class="fas fa-file-download"></i></a>'+
+                    '<button type="button" class="btn btn-outline-danger btn-sm mr-1" data-toggle="modal" '+
+                        'data-target="#deleteModal" data-id="'+row[1]+'" data-option="delete" id="delSingle";">'+
+                        '<i class="fas fa-trash"></i></button>'+
+                    '<div class="btn-group btn-group-toggle" data-toggle="buttons" id="Group"><label class="btn btn-sm btn-outline-primary labelSingle" id="'+row[1]+'">'+
+                            '<input type="checkbox" name="checkSingle" id="checkSingle" data-id="'+row[1]+'" autocomplete="off"> <i class="fas fa-check"></i></label></div>' }
             }            
         ],
         "drawCallback": function(data){    
@@ -436,10 +574,10 @@ $(document).ready(function() {
                 $(".colActions").removeClass("mb-2")           
                 //Add New Definitions            
                 $("tr").addClass("row");
-                $("tr").addClass("mx-1 my-3 py-3 tableRow shadow-sm");
+                $("tr").addClass("mx-3 my-3 py-3 tableRow shadow-sm");
                 $("tbody").addClass("container-fluid");
                 $("thead").addClass("container-fluid d-none d-sm-table-row");
-                $("thead tr").removeClass("tableRow  my-3 py-3").addClass("tableHead py-1");
+                $("thead tr").removeClass("tableRow my-3 py-3").addClass("tableHead");
                 $(".colImage").addClass("col-sm-2 col-lg-1")
                 $(".colName").addClass("col-sm-4 col-md-3 col-lg-4")
                 $(".colSize").addClass("col-sm-3 col-md-2 col-lg-2")
@@ -453,7 +591,7 @@ $(document).ready(function() {
                 $("tr").removeClass("mx-1 my-3 py-3 tableRow");
                 $("tbody").removeClass("container-fluid");
                 $("thead").removeClass("container-fluid d-none d-sm-table-row");
-                $("thead tr").addClass("tableRow  my-3 py-3").removeClass("tableHead py-1");
+                $("thead tr").addClass("tableRow  my-3 py-3").removeClass("tableHead");
                 $(".colImage").removeClass("col-sm-2 col-lg-1")
                 $(".colName").removeClass("col-sm-4 col-md-3 col-lg-4")
                 $(".colSize").removeClass("col-sm-3 col-md-2 col-lg-2")
@@ -492,6 +630,7 @@ $(document).on("click", "#delSingleFile", function () {
             $("#AbortdelSingleFile" ).addClass("d-none");
             $("#delSingleFile").addClass("d-none");           
             $("#delConfirm").removeClass("d-none")
+            $(".btn-checkAll").removeClass( 'active' );
             $( "#delConfirm" ).click(function() {             
                 $('#deleteModal').modal('hide');
                 table.ajax.reload();
@@ -518,11 +657,38 @@ $( "#AbortdelSingleFile" ).click(function() {
 var now = new Date(Date.now());
 var formattedTime = now.getHours() + ":" + now.getMinutes();
 $('#currentTime').html(formattedTime);
+$('#timeScreensaver').html(formattedTime);
+
 window.setInterval(function(){
 var now = new Date(Date.now());
-var formattedTime = now.getHours() + ":" + now.getMinutes();
+hour = now.getHours()
+minutes = now.getMinutes()
+
+var formattedTime = (hour<10 ? '0' : '') + hour + ":" +(minutes<10 ? '0' : '') + minutes;
 $('#currentTime').html(formattedTime);
+$('#timeScreensaver').html(formattedTime);
 }, 60000);
+</script>
+
+<script>
+//Current Date
+var d = new Date();
+var month = d.getMonth()+1;
+var day = d.getDate();
+var formattedDate = d.getFullYear() + '/' +
+    (month<10 ? '0' : '') + month + '/' +
+    (day<10 ? '0' : '') + day;
+$('#dateScreensaver').html(formattedDate);
+
+window.setInterval(function(){
+    var d = new Date();
+var month = d.getMonth()+1;
+var day = d.getDate();
+var formattedDate = d.getFullYear() + '/' +
+    (month<10 ? '0' : '') + month + '/' +
+    (day<10 ? '0' : '') + day;
+$('#dateScreensaver').html(formattedDate);
+}, 300000);   
 </script>
 
 <script>
@@ -561,26 +727,45 @@ function fullscreen() {
 
 
 
-<!-- Screensaver Component -->
 <script>
-var carouselHTML = "";
-$("#buttonStart").click(function(){  
-    $.getJSON( "files.php", function( data ) {        
-        arr = data.data;     
-        for ( var i = 1, l = arr.length; i < l; i++ ) {  
-            carouselHTML=carouselHTML+'<div class="carousel-item"><img src="'+arr[i][0]+'" class="screensaverImg"></div>'
-        }
-        $(".carousel-inner").html(carouselHTML)
-        $( ".carousel-item" ).first().addClass( "active" );        
-    });
-});  
+var answer= '';
 
-$( "#screensaverModal" ).click(function( event ) {
-    fullscreen();
-    $('#screensaverModal').modal('hide')
+$(document).on("click", "#Group", function () {
+    $('.btn-delAll').addClass('btn-outline-light').removeClass('btn-outline-danger')
+            answer='';
+            $('#Group .active').each(function(){
+                answer= answer+$(this).attr('id')+','; 
+                $('.btn-delAll').removeClass('btn-outline-light').addClass('btn-outline-danger')
+            });
+            answer=answer.slice(0,-1);
+});
+
+$(document).on("click", ".btn-delAll", function () {
+    if ( $( ".btn-delAll" ).is( ".btn-outline-danger" ) ) {
+        
+        console.log(answer)
+        var fileName = answer;
+    $(".modal-body #fileName" ).empty();
+    $(".modal-body #fileName" ).wrapInner(fileName);
+    $('#delSingleFile').data('id',fileName);
+    $("#delConfirm").addClass("d-none");
+    $("#delSingleFile").removeClass("d-none");
+    $("#AbortdelSingleFile" ).removeClass("d-none");
+    $("#deleteModalHeader").html("Are you sure?");
+    $("#delMessage").html("will be deleted from piMPF")
+
+    $("#deleteModal").modal()
+    $('.btn-delAll').addClass('btn-outline-light').removeClass('btn-outline-danger')
+        }
+    else {
+        console.log("no selection")
+    }
+    
 });
 </script>
 
+<script>
 
+</script>
 </body>
 </html>

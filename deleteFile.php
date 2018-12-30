@@ -3,13 +3,21 @@ $file = "";
 $file = isset($_POST['filename']) ? $_POST['filename'] : '';
 $file = !empty($_POST['filename']) ? $_POST['filename'] : '';
 $message = "";
+$files = explode(",", $file);
 
-if (file_exists($file)) {
-    unlink($file);
-    $message = "true";
+foreach ($files as &$value) {
+    
+    if (file_exists($value)) {
+        unlink($value);
+        $message = "true";
+    }
+    else {
+        $message = "false";
+    }
 }
-else {
-    $message = "false";
-}
+
+
+
 echo $message;
+unset($value); 
 ?>

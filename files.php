@@ -2,8 +2,8 @@
 $files = array();
 
 
-$files = glob("/path/to/directory/*.{jpg,gif,png}", GLOB_BRACE);
-foreach (glob("images/*.{jpg,jpeg,gif,png}", GLOB_BRACE) as $file) {
+$files = glob("/path/to/directory/*.{jpg,JPG,jpeg,JPEG,gif,GIF,png,PNG}", GLOB_BRACE);
+foreach (glob("images/*.{jpg,JPG,jpeg,JPEG,gif,GIF,png,PNG}", GLOB_BRACE) as $file) {
   $files[] = $file;
 }
 
