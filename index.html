@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="assets/fontawesome/css/all.css" >
+    <!-- Datatables CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/datatables/datatables.min.css"/>
+    <!-- piMPF CSS -->
+    <link rel="stylesheet" href="components/pimpf.css" >
+    
+    <title>piMPF</title>    
+<style>
+
+</style>
+</head>
+<body>     
+
+
+<div class="container-fluid sticky-top">
+    <div class="row">
+        <div class="col-xl-1 px-0 bg-dark"></div>
+        <div class="col-xl-10 px-0">
+            <nav class="navbar navbar-dark bg-dark py-0">
+                <a class="navbar-brand" href="#">
+                    <img src="components/help/piMPF_logo_small.png" width="30" alt="logo">
+                piMPF
+                </a>          
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a id="currentTime" class="nav-link" href="#"></a>
+                    </li>
+                </ul>     
+            </nav> 
+        </div>
+        <div class="col-xl-1 px-0 bg-dark"></div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row " style=""></div>
+    <div class="row bg-white my-4 ">
+        <div class="col-xl-1 px-0"></div>
+        <div class="col-xl-10 px-0">
+            <div class="container-fluid bg-white">
+                <div class="row my-2 ">
+                    <div class="col-12 col-sm-4 d-flex align-items-center bg-white">                        
+                        <img src="components/help/piMPF_logo_small.png" class="img-fluid mx-auto d-block align-middle" alt="logo">
+                    </div>
+                    <div class="col-12 col-sm-8">
+                    <h2 class="display-2">piMPF</h2>
+                    <p>Raspberry Pi Manageable Picture Frame</p>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <button id="buttonStart" type="button" onclick="fullscreen();" data-toggle="modal" data-target="#screensaverModal" class="btn btn-primary btn-lg btn-block shadow">
+                            Start<i class="fas fa-play mx-1"></i>
+                        </button>                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+<div class="container-fluid">    
+    <div class="row ">
+        <div class="col-xl-1 px-0"></div>
+        <div class="col-xl-10 px-0">           
+            <div class="container-fluid">               
+                <div class="row">
+                    <div class="col-12">                        
+                        <h3><i class="fas fa-file-image mr-1"></i>Picture Manager</h3>
+                        <hr>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-12 px-0">
+                        <table id="imageTable" class="table" style="width:100%;">
+                            <thead>
+                                <th></th>
+                                <th><span class="ml-3">Filename</span></th>
+                                <th><span class="ml-3">Size</span></th>
+                                <th><span class="ml-3">Date</span></th>
+                                <th><span class="mr-3">Action</span></th>
+                            </thead>         
+                            <tbody>
+                            </tbody>                    
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-1 px-0"></div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row bg-white my-4">
+        <div class="col-xl-1 px-0"></div>
+        <div class="col-xl-10 px-0"> 
+            <div class="container-fluid my-4">
+                <div class="row">
+                    <div class="col-12">                        
+                        <h3><i class="fas fa-cogs mr-1"></i>Settings</h3>
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-lg-4">
+                        <h5><i class="fas fa-cogs mr-1"></i>Screensaver</h5>                     
+                        <div class="form-group row">
+                            <div class="col-9">Show Time
+                            </div>
+                            <div class="col-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="timeCheck">       
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-9">Show Date
+                            </div>
+                            <div class="col-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="dateCheck"d>       
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-9">Interval in seconds
+                            </div>
+                            <div class="col-sm-3">
+                                <select class="form-control" id="FormControlSelectInterval">
+                                    <option>5</option>
+                                    <option>10</option>
+                                    <option>30</option>
+                                    <option>60</option>    
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                    <div class="col-12 text-right">
+                        <button type="button" id="settingsReset" onclick="settingsReset();" class="btn btn-secondary shadow">
+                            Reset
+                        </button>
+                        <button type="button" id="settingsSave" onclick="settingsSave();" class="btn btn-primary shadow">
+                            Save Settings
+                        </button>
+                    </div>
+                </div>
+                    </div> 
+                            
+                </div>
+                
+            </div>
+        </div>
+        <div class="col-xl-1 px-0"></div>
+    </div>
+</div>
+
+<div class="container-fluid bg-dark">
+    <div class="row">
+        <div class="col-xl-1 px-0 "></div>
+        <div class="col-xl-10 px-0">
+            <p>copyright niklas.stephan
+        </div>
+        <div class="col-xl-1 px-0 bg-dark"></div>
+    </div>
+</div>
+
+<!-- Modal for File Deletion-->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalHeader">Are you sure?</h5>
+            </div>
+            <div class="modal-body">
+                File <mark><span name="fileName" id="fileName"></span></mark> <span id="delMessage">will be deleted from piMPF</span>.
+            </div>
+            <div class="modal-footer">       
+                <button type="button" id="AbortdelSingleFile" class="btn btn-secondary" data-dismiss="modal">Abort</button>
+                <button type="button" id="delSingleFile" class="btn btn-danger">Delete</button>
+                <button type="button" id="delConfirm" class="d-none btn btn-success" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Modal for File Upload-->
+<div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <form id="uploadForm" method="post" enctype="multipart/form-data">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalHeader">Select Files for Upload</h5>
+            </div>            
+            <div class="modal-body">
+                <p id="uploadinfoText">Choose files by file browser or drag them into box.</p>
+                <input type="file" id="uploadInput" class="form-control upload-control" name="files[]" multiple>    
+                <div class="d-flex justify-content-center">
+                    <div class="d-none spinner-border" id="loadingSpinner" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>                                 
+            </div>  
+            <div class="modal-footer">       
+                <button type="button" id="UploaddelSingleFile" class="btn btn-secondary" data-dismiss="modal">Abort</button>
+                <input type="submit" value="Upload Files" class="btn btn-primary" name="submit">
+                <button type="button" id="delConfirm" class="d-none btn btn-success" data-dismiss="modal">OK</button>
+            </div>  
+            </form>  
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Screensaver-->
+
+    <div class="modal ScreensaverModal" id="screensaverModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog ScreensaverModal-dialog" role="document">
+            <div class="modal-content ScreensaverModal-content">
+                <div class="modal-body ScreensaverModal-body">
+                    <div id="carouselControls" class="carousel carousel-fade" data-ride="carousel"  data-pause="false">
+                        <div class='screensaver'>
+                            <h1 id='timeScreensaver'></h1>
+                            <h2 id='dateScreensaver'></h2>
+                        </div>
+                        <div class="carousel-inner">
+                            <!-- Items are injected by jquery -->  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script type="text/javascript" src="assets/bootstrap/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="assets/bootstrap/js/popper.min.js"></script>
+<script type="text/javascript" src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="assets/datatables/datatables.min.js"></script>
+<script type="text/javascript" src="assets/lazyload/jquery.lazy.min.js"></script>
+<!-- piMPF JS -->
+<script type="text/javascript" src="components/functions.js"></script>
+<script type="text/javascript" src="components/table.js"></script>
+
+<script>
+$.holdReady( true );
+$.holdReady( false );
+$(document).ready(function() {
+    var answer= '';
+   settingsGet()
+});
+</script>
+
+
+
+</body>
+</html>
