@@ -1,21 +1,47 @@
 //Screensaver init
-$("#buttonStart").click(function(){  
+function screensaverInit(intervalDuration) {
     var carouselHTML = "";
     $.getJSON( "components/getFiles.php", function( data ) {        
         arr = data.data;     
         for ( var i = 0, l = arr.length; i < l; i++ ) {  
-            carouselHTML=carouselHTML+'<div class="carousel-item"><img data-src="'+arr[i][0]+'" class="screensaverImg lazy"></div>'
+            carouselHTML=carouselHTML+'<div class="carousel-item" ><img data-src="'+arr[i][0]+'" class="screensaverImg lazy"></div>'
         }
         $(".carousel-inner").html(carouselHTML)
         $( ".carousel-item" ).first().addClass( "active" );  
-        $('img.lazy').lazy();
+        $('.carousel-item').attr("data-interval",intervalDuration)
+        $.fn.carousel.Constructor.prototype.cycle = function (event) {
+            if (!event) {
+                this._isPaused = false;
+            }
+            if (this._interval) {
+                clearInterval(this._interval)
+                this._interval = null;
+            }
+            if (this._config.interval && !this._isPaused) {
 
+                var $ele = $('.carousel-item');
+                var newInterval = $ele.data('interval') || this._config.interval;
+                this._interval = setInterval(
+                (document.visibilityState ? this.nextWhenVisible : this.next).bind(this),
+                newInterval
+                );
+            }
+            lazyScreen();
+    };
+        
     });
-}); 
+}
 $( "#screensaverModal" ).click(function( event ) {
     fullscreen();
     $('#screensaverModal').modal('hide')
 });
+
+//Screensaver Image download onyl when seenable
+function lazyScreen() {
+    $('img.lazy.screensaverImg').Lazy({  
+        visibleOnly: true
+    });
+}
 
 //Current Time
 function time() {
@@ -24,7 +50,6 @@ function time() {
     minutes = now.getMinutes()
     var now = new Date(Date.now());
     var formattedTime = (hour<10 ? '0' : '') + hour + ":" +(minutes<10 ? '0' : '') + minutes;
-    $('#currentTime').html(formattedTime);
     $('#timeScreensaver').html(formattedTime);
 
     window.setInterval(function(){
@@ -33,7 +58,6 @@ function time() {
         minutes = now.getMinutes()
 
         var formattedTime = (hour<10 ? '0' : '') + hour + ":" +(minutes<10 ? '0' : '') + minutes;
-        $('#currentTime').html(formattedTime);
         $('#timeScreensaver').html(formattedTime);
     }, 60000);
 }
@@ -90,6 +114,8 @@ function fullscreen() {
     }
 }
 
+
+
 //Get or use Standard Settings
 function settingsGet() {
     $.post( "config.php", function( config ) {
@@ -117,12 +143,13 @@ function settingsGet() {
         {
             intervalDuration=values.interval*1000;
             $('#FormControlSelectInterval').prepend($("<option />").val(intervalDuration).text(values.interval).prop('selected', true));               
-            //const options = $("#carouselControls").data()['bs.carousel']["_config"];
-            var interval = "";       
-            
-           $("#carouselControls").data()['bs.carousel']["_config"].interval = intervalDuration;
+           screensaverInit(intervalDuration);         
         }       
-    });
+    }).fail(function() {
+        console.log("Configuration not found, will create init config. Nothing to worry.")
+        settingsSave();
+      })
+      ;
 }
 
 //Reset Settings
@@ -150,6 +177,40 @@ function settingsSave() {
     location.reload();
   });; 
 }
+
+//Upload Files
+function uploadFiles() {
+    
+    /*
+    const url = 'components/uploadFiles.php';
+    const form = document.querySelector('#uploadForm');
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        const files = document.querySelector('[type=file]').files;
+        const formData = new FormData();
+        $('#uploadInput').addClass("d-none");
+        $('#loadingSpinner').removeClass("d-none");
+        $('#uploadinfoText').html('Please wait until files are uploaded.')
+        for (let i = 0; i < files.length; i++) {
+            let file = files[i];
+            formData.append('files[]', file);
+        }
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        }).then(response => {
+            $('#uploadModal').modal('hide');
+            $('#uploadInput').removeClass("d-none");
+            $('#loadingSpinner').addClass("d-none");
+            $('#uploadinfoText').html('Choose files by file browser or drag them into the box.')
+            table.ajax.reload();
+            });
+        }); 
+        */
+      
+}
+
+
 
 // Delete Files
 $(document).on("click", "#delSingle", function () {
@@ -203,9 +264,8 @@ $(document).on("click", "#Group", function () {
             answer=answer.slice(0,-1);
 });
 $(document).on("click", ".btn-delAll", function () {
-    if ( $( ".btn-delAll" ).is( ".btn-outline-danger" ) ) {      
-       
-        var fileName = answer;
+    if ( $( ".btn-delAll" ).is( ".btn-outline-danger" ) ) {             
+    var fileName = answer;
     $(".modal-body #fileName" ).empty();
     $(".modal-body #fileName" ).wrapInner(fileName);
     $('#delSingleFile').data('id',fileName);
@@ -221,3 +281,7 @@ $(document).on("click", ".btn-delAll", function () {
         console.log("no selection")
     }    
 });
+
+
+
+ 

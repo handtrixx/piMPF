@@ -4,74 +4,48 @@ var table = $('#imageTable').DataTable( {
     "ajax": 'components/getFiles.php',    
     "pageLength": 12,
     "lengthMenu": [ [12, 48, 96, -1], [12, 48, 96, "All"] ]  ,  
+    "pagingType": "full",
     order: [[1, 'asc']],
     buttons: [           
         {
-            text: '<span data-toggle="modal" data-target="#uploadModal" data-option="upload" id="btnUpload";"><i class="fas fa-upload mx-1"></i>Upload</span>',                
-            className: 'btn btn-sm btn-outline-primary ml-1',
+            text: '<span data-toggle="modal" data-target="#uploadModal" data-option="upload" id="btnUpload";"><i class="fas fa-upload"></i><span class="d-none d-xl-inline ml-1">Upload</span></span>',                
+            className: 'btn btn-sm btn-outline-primary ml-1 mr-1',
             init: function(api, node, config) {$(node).removeClass('btn-secondary')},
-            action: function ( ) {
-                const url = 'components/uploadFiles.php';
-                const form = document.querySelector('#uploadForm');
-                form.addEventListener('submit', e => {
-                    e.preventDefault();
-                    const files = document.querySelector('[type=file]').files;
-                    const formData = new FormData();
-                    $('#uploadInput').addClass("d-none");
-                    $('#loadingSpinner').removeClass("d-none");
-                    $('#uploadinfoText').html('Please wait until files are uploaded.')
-                    for (let i = 0; i < files.length; i++) {
-                        let file = files[i];
-                        formData.append('files[]', file);
-                    }
-                    fetch(url, {
-                        method: 'POST',
-                        body: formData
-                    }).then(response => {
-                        $('#uploadModal').modal('hide');
-                        $('#uploadInput').removeClass("d-none");
-                        $('#loadingSpinner').addClass("d-none");
-                        $('#uploadinfoText').html('Choose files by file browser or drag them into box.')
-                        table.ajax.reload();
-                        });
-                    }); 
+            action: function ( ) {                
             }
         },
         {
-            text: '<span id="btnRefresh";"><i class="fas fa-sync-alt"></i></span>',                
-            className: 'btn btn-sm btn-outline-primary ml-1',
+            text: '<span id="btnRefresh";"><i class="fas fa-sync-alt"></i><span class="d-none d-xl-inline ml-1">Refresh</span></span>',                
+            className: 'btn btn-sm btn-outline-primary ml-1 mr-1',
             init: function(api, node, config) {$(node).removeClass('btn-secondary')},
-            action: function ( ) {
-                table.ajax.reload();
-            }
+            action: function ( ) {table.ajax.reload();           }
         },
         {
-            text: '<span id="toggleView"><i class="fas fa-table"></i></span>',
-            className: 'btn btn-sm btn-outline-primary ml-1 d-none d-sm-block',
+            text: '<span id="toggleView"><i class="fas fa-table"></i><span class="d-none d-xl-inline ml-1">Table View</span></span>',
+            className: 'btn btn-sm btn-outline-primary ml-1 mr-1 d-none d-sm-block',
             init: function(api, node, config) {$(node).removeClass('btn-secondary')},
             action: function ( ) {
                 if ( toggleView == "table") {
-                    $("#toggleView").html('<i class="fas fa-table"></i>');
+                    $("#toggleView").html('<i class="fas fa-table"></i><span class="d-none d-xl-inline ml-1">Table View</span>');
                     toggleView = "cards"
                 } 
                 else if ( toggleView == "cards" ) {
-                    $("#toggleView").html('<i class="fas fa-th-large"></i>');
+                    $("#toggleView").html('<i class="fas fa-th-large"></i><span class="d-none d-xl-inline ml-1">Card View</span>');
                     toggleView = "table"
                 }
                 table.ajax.reload();
             }
         },
         {
-            text: '<span id="toggleView"><i class="fas fa-check"></i></span>',
-            className: 'btn btn-outline-primary btn-sm btn-checkAll ml-3 mr-1',
+            text: '<span id="toggleView"><i class="fas fa-check"></i><span class="d-none d-xl-inline ml-1">Select All</span></span>',
+            className: 'btn btn-outline-primary btn-sm btn-checkAll ml-1 mr-1',
             init: function(api, node, config) {$(node).removeClass('btn-secondary')},
             action: function ( ) {
                     if ($(".btn-checkAll").hasClass('active'))
                     {
                         $(".btn-checkAll").removeClass( 'active' );
                         $(".labelSingle").removeClass( 'active' );
-                        $('.btn-delAll').removeClass('btn-outline-danger').addClass('btn-outline-light')
-                        
+                        $('.btn-delAll').removeClass('btn-outline-danger').addClass('btn-outline-light')                        
                     }
                     else
                     {
@@ -84,39 +58,28 @@ var table = $('#imageTable').DataTable( {
                             $('.btn-delAll').removeClass('btn-outline-light').addClass('btn-outline-danger')
                         });
                         answer=answer.slice(0,-1);
-                    }
-                    
-                }
-                
-            
+                    }                    
+                }               
         },
         {
-            text: '<span id="toggleView"><i class="fas fa-trash"></i></span>',
+            text: '<span id="toggleView"><i class="fas fa-trash"></i><span class="d-none d-xl-inline ml-1">Delete</span></span>',
             className: 'btn btn-outline-light btn-sm btn-delAll ml-1 mr-1',
             init: function(api, node, config) {$(node).removeClass('btn-secondary')},
-            action: function ( ) {
-                }
-                
-            
+            action: function ( ) { }               
         },
         {
-            text: '<span id="toggleView"><i class="fas fa-download"></i></span>',
-            className: 'btn btn-outline-light btn-sm ml-1 mr-1',
+            text: '<span data-toggle="modal" data-target="#settingsModal" id="btnSettings";"><i class="fas fa-cogs"></i><span class="d-none d-xl-inline ml-1">Settings</span></span>',
+            className: 'btn btn-outline-secondary btn-sm ml-1 mr-1',
             init: function(api, node, config) {$(node).removeClass('btn-secondary')},
-            action: function ( ) {
-                }
-                
-            
+            action: function ( ) { }                
         }
-        
     ],
     columns: [
         { 
         "orderable": false, 
         targets: 0, 
         cellType: 'div',
-        className: 'col-12 colImage',
-               
+        className: 'col-12 colImage',               
         createdCell: function (nTd, cellData, oData, iRow, iCol) {        
             imageurl= 'components/getImage.php?filename='+ encodeURIComponent(cellData)+'';        	
                 if (toggleView == "table") 
@@ -168,6 +131,9 @@ var table = $('#imageTable').DataTable( {
         }            
     ],
     "drawCallback": function(data){    
+       
+        
+        
         
         if (toggleView == "table") 
         {
@@ -176,7 +142,7 @@ var table = $('#imageTable').DataTable( {
             $("table").removeClass("container-fluid");
             $("tbody").removeClass("row");    
             $('tr').removeClass("tableCard d-block")
-            $('.HelpWrapper').removeClass('col-12 col-sm-6 col-md-4 col-lg-3 mb-2');
+            $('.HelpWrapper').removeClass('col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-2');
             $(".colImage").removeClass("px-0")  
             $(".colActions").removeClass("mb-2")           
             //Add New Definitions            
@@ -208,12 +174,12 @@ var table = $('#imageTable').DataTable( {
             $("thead").addClass("d-none");
             $("table").addClass("container-fluid");
             $("tbody").addClass("row");    
-            $('tbody tr').addClass("tableCard shadow-sm d-block").wrap("<div class='HelpWrapper col-12 col-sm-6 col-md-4 col-lg-3 mb-2'></div>");
+            $('tbody tr').addClass("tableCard shadow-sm d-block").wrap("<div class='HelpWrapper col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-2'></div>");
             $(".colImage").addClass("px-0")  
             $(".colActions").addClass("mb-2")            
         }
         $('.lazy').lazy();
-        $.holdReady( false );
+       
        
     }       
 } 
