@@ -1,1 +1,1 @@
-<?php $config='{"showTime":"true","showDate":"true","interval":5}';echo $config; ?>
+<?php $config='{"showTime":"true","showDate":"true","interval":10}';echo $config; ?>
