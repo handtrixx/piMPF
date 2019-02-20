@@ -9,16 +9,20 @@ $thubmHeight = 500;
 
 if (!empty($_FILES)) {     
     $tempFile = $_FILES['file']['tmp_name'];  
+    
     $targetPath = dirname( __FILE__ ) . $ds. $storeFolder . $ds; 
     $targetThumbpath = dirname( __FILE__ ) . $ds. $thumbnailFolder . $ds;     
     
     $targetFile =  $targetPath. $_FILES['file']['name']; 
     $targetThumbnail= $targetThumbpath. $_FILES['file']['name'];
     
-    $exif = exif_read_data($tempFile);
+    move_uploaded_file($tempFile,$targetFile);
+    
+    
+    $exif = exif_read_data($targetFile);
     $orientation = $exif['Orientation'];
     if($orientation != 1){
-        $img = imagecreatefromjpeg($tempFile);
+        $img = imagecreatefromjpeg($targetFile);
         $deg = 0;
         switch ($orientation) {
           case 3:
@@ -34,38 +38,38 @@ if (!empty($_FILES)) {
         if ($deg) {
           $img = imagerotate($img, $deg, 0);        
         }
-        imagejpeg($img, $tempFile, 95);
+        imagejpeg($img, $targetFile, 95);
     }
-    
-    move_uploaded_file($tempFile,$targetFile);
-    copy($targetFile, $targetThumbnail);
-    
-    
     list($width_orig, $height_orig) = getimagesize($targetFile);
     $ratio_orig = $width_orig/$height_orig;
-    
     
     if ($targetWidth/$targetHeight > $ratio_orig) {
         $targetWidth = $targetHeight*$ratio_orig;
     } else {
         $targetHeight = $targetWidth/$ratio_orig;
     }
-    
-    if ($thumbWidth/$thumbHeight > $ratio_orig) {
-        $thumbWidth = $thumbHeight*$ratio_orig;
-    } else {
-        $thumbHeight = $thumbWidth/$ratio_orig;
-    }
-    
     $image_p = imagecreatetruecolor($targetWidth, $targetHeight);
     $image = imagecreatefromjpeg($targetFile);
     imagecopyresampled($image_p, $image, 0, 0, 0, 0, $targetWidth, $targetHeight, $width_orig, $height_orig);
-    imagejpeg($image_p, $targetFile, 72);  
+    imagejpeg($image_p, $targetFile, 72);     
     
     
-    $image_p = imagecreatetruecolor($thumbWidth, $thumbHeight);
+if(!file_exists($targetThumbnail)) {
+    // if file does not exist, generate one
+    list($width_orig, $height_orig) = getimagesize($targetFile);
+    $ratio_orig = $width_orig/$height_orig;
+    if ($width/$height > $ratio_orig) {
+    $width = $height*$ratio_orig;
+    } else {
+    $height = $width/$ratio_orig;
+    }
+    $image_p = imagecreatetruecolor($width, $height);
     $image = imagecreatefromjpeg($targetFile);
-    imagecopyresampled($image_p, $image, 0, 0, 0, 0, $thumbWidth, $thumbHeight, $width_orig, $height_orig);
-    imagejpeg($image_p, $targetThumbnail, 72);
+    imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
+    imagejpeg($image_p, $targetThumbnail, 72);    
 }
+    
+  
+
+ }
 ?>  
