@@ -25,7 +25,7 @@ First we need to install the standard software pimpf is based on.
 For Raspbian, Debian, Ubuntu and comparable, please execute:
 
 ```bash
-sudo apt-get install nginx php-fpm php-gd php-bcmath git unzip
+sudo apt-get install nginx php-fpm php-gd php-bcmath php-mbstring git unzip
 ```
 
 ### Configure NGINX and PHP
